@@ -27,21 +27,21 @@
                     <h3 class="card-title">Edit Data Obat</h3>
                 </div>
                 <!-- form start -->
-                <form action="{{ route('obat.update', $obats->id) }}" method="POST">
+                <form action="{{ route('obat.update', $obat->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" value="{{ $obats->nama_obat }}" required>
+                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" value="{{ $obat->nama_obat }}" required>
                         </div>
                         <div class="form-group">
                             <label for="kemasan">Kemasan</label>
-                            <input type="text" class="form-control" id="kemasan" name="kemasan" value="{{ $obats->kemasan }}" required>
+                            <input type="text" class="form-control" id="kemasan" name="kemasan" value="{{ $obat->kemasan }}" required>
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga</label>
-                            <input type="number" class="form-control" id="harga" name="harga" value="{{ $obats->harga }}" required>
+                            <input type="number" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" required>
                         </div>
                     </div>
                     <!-- /.card-body -->

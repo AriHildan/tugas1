@@ -2,43 +2,41 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Periksa extends Model
+class periksa extends Model
 {
-
-    use HasFactory;
-
-    protected $table = "periksas";
-
-    protected $fillable = [
+    protected $fillable = [ //ini nanti digunakan untuk tabel yang hanya boleh diiisi
         'id_pasien',
         'id_dokter',
         'tgl_periksa',
         'catatan',
-        'biaya_periksa'
+        'biaya_periksa',
+        
     ];
 
-    //RELATION TO USER
-    public function pasien()
-    {
-        return $this->belongsTo(User::class, 'id_pasien');
-    }
-
-    //RELATION TO USER
-    public function dokter()
+    //menggunakan belongs to karena merupakan child atau anak,dimana id_dokter,dan id_pasien mempunyai relasi ke id users
+    //relasi ke user sebagai dokter
+    public function dokter(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_dokter');
     }
 
-    public function getTglPeriksaAttribute($value)
+    //relasi ke user sebagai pasien
+    public function pasien(): BelongsTo
     {
-        return \Carbon\Carbon::parse($value)->format('d M Y H:i');
+        return $this->belongsTo(User::class, 'id_pasien');
     }
 
-    public function obat()
+    public function detailPeriksa(): HasMany
     {
-        return $this->belongsToMany(Obat::class, 'detail_periksas', 'id_periksa', 'id_obat');
+        return $this->hasMany(DetailPeriksa::class, 'id_periksa');
+    }
+    public function obats(): BelongsToMany
+    {
+        return $this->belongsToMany(Obat::class, 'obat_periksa', 'periksa_id', 'obat_id');
     }
 }
