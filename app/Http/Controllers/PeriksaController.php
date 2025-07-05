@@ -4,35 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Periksa;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Dokter;
-use App\Models\RiwayatPeriksa;
+use App\Models\daftar_poliModel;
+use App\Models\periksa;
 
 class PeriksaController extends Controller
 {
+    //
     public function index()
-{
-    $dokter = Dokter::all(); // ambil semua data dokter
-    $riwayat = RiwayatPeriksa::with('dokter')->get(); // ambil riwayat dengan relasi dokter (jika ada)
-
-    return view('periksa.index', compact('dokter', 'riwayat'));
-}
-
-    public function store(Request $request)
     {
-        $request->validate([
-            'id_dokter' => 'required|exists:users,id',
-        ]);
+        $pasienId = auth()->user()->pasienModels->id;
+        $dokters = User::where('role', 'dokter')->get();
+        $daftars = daftar_poliModel::all();
+        $periksas = Periksa::with('dokter', 'pasienModels.user', 'daftarPoli.jadwal.poli')
+            ->where('id_pasien', $pasienId)
+            ->get();
+        return view('layouts.list_dokter', compact('dokters', 'daftars', 'periksas'));
+    }
 
-        Periksa::create([
-            'id_pasien' => Auth::id(),
-            'id_dokter' => $request->id_dokter,
-            'tgl_periksa' => null,
-            'catatan' => '',
-            'biaya_periksa' => null,
-        ]);
+    public function lihatDetailPeriksa($id)
+    {
+        $pasienId = auth()->user()->pasienModels->id;
 
-        return redirect()->route('periksa.index')->with('success', 'Berhasil mendaftar periksa');
+        $periksa = periksa::with('dokter', 'pasienModels.user') // load user dari pasien
+            ->where('id_pasien', $pasienId)
+            ->findOrFail($id);
+
+        return view('layouts.detail_periksa', compact('periksa'));
     }
 }

@@ -42,6 +42,7 @@ class ObatController extends Controller
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',
+            'deskripsi' => 'required|string',
         ]);
 
         $obat = Obat::findOrFail($id);
@@ -49,6 +50,7 @@ class ObatController extends Controller
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->route('obat.index')->with('success', 'Data obat berhasil diperbarui!');
@@ -60,12 +62,14 @@ class ObatController extends Controller
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',
+            'deskripsi' => 'required|string',
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->route('obat.index')->with('success', 'Data obat berhasil ditambahkan!');

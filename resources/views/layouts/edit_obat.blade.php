@@ -3,15 +3,15 @@
 @section('content-header')
 <div class="container-fluid">
     <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1>Edit Obat</h1>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Edit Obat</li>
-        </ol>
-      </div>
+        <div class="col-sm-6">
+            <h1>Edit Obat</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Edit Obat</li>
+            </ol>
+        </div>
     </div>
 </div><!-- /.container-fluid -->
 @endsection
@@ -43,10 +43,15 @@
                             <label for="harga">Harga</label>
                             <input type="number" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" required>
                         </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi Obat</label>
+                            <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{$obat->deskripsi}}" required>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-warning">Update</button>
+                        <a href="/list-obat" class="btn btn-info">Kembali</a>
                     </div>
                 </form>
             </div>

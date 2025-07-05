@@ -30,6 +30,8 @@ class AuthController extends Controller
                 return redirect()->intended('/obat');
             } elseif ($user->role === 'pasien') {
                 return redirect()->intended('/dokter');
+            } elseif ($user->role === 'admin') {
+                return redirect()->intended('/iniadmin');
             }
 
             // Default fallback
@@ -37,7 +39,8 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Email atau Password yang anda masukan salah!',
+            
         ])->onlyInput('email');
     }
     public function logout(Request $request)
@@ -47,5 +50,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
-
 }

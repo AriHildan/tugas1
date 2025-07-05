@@ -9,6 +9,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     @include('layouts.lib.ext_css')
+    @include('layouts.lib.ext_js_datatables')
     <style>
         .profile-pic {
             width: 100px;
@@ -36,7 +37,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../../index3.html" class="brand-link">
+            <a href="#" class="brand-link">
                 <img src="{{url('/admin/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
@@ -93,18 +94,23 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Footer-->
-        @include('layouts.footer')
+
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
+        <!-- Footer-->
+        @include('layouts.footer')
     </div>
+
     <!-- ./wrapper -->
 
     <!-- jQuery -->
     @include('layouts.lib.ext_js')
+   
+    <!-- DataTables  & Plugins -->
+    @include('layouts.lib.ext_js_datatables')
 </body>
 
 </html>

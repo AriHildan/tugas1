@@ -15,37 +15,46 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'iqbal',
+                'nama' => 'Wisnu',
                 'no_hp' => '0987654321',
                 'alamat' => 'semarang',
                 'role' => 'pasien',
-                'email' => 'iqbal@gmail.com',
+                'email' => 'wisnu@gmail.com',
                 'password' => 'password',
             ],
             [
-                'nama' => 'rudi',
+                'nama' => 'Rizal',
                 'no_hp' => '0987654323',
                 'alamat' => 'semarang',
                 'role' => 'dokter',
-                'email' => 'rudi@gmail.com',
+                'email' => 'rizal@gmail.com',
                 'password' => 'password',
             ],
             [
-                'nama' => 'gunawan',
+                'nama' => 'Dhika',
                 'no_hp' => '0987654324',
                 'alamat' => 'semarang',
                 'role' => 'pasien',
-                'email' => 'gunawan@gmail.com',
+                'email' => 'dhika@gmail.com',
                 'password' => 'password',
             ],
             [
-                'nama' => 'yudi',
+                'nama' => 'Tegar',
                 'no_hp' => '0987654325',
                 'alamat' => 'semarang',
                 'role' => 'dokter',
-                'email' => 'yudi@gmail.com',
+                'email' => 'tegar@gmail.com',
                 'password' => 'password',
             ],
+            [
+                'nama' => 'admin',
+                'no_hp' => '0987654332',
+                'alamat' => 'semarang kota',
+                'role' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => '123456',
+            ],
+            
         ];
         foreach ($data as $d) {
             User::create([

@@ -6,13 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Obat extends Model
 {
     protected $fillable = [
         'nama_obat',
         'kemasan',
-        'harga'
+        'harga',
+        'deskripsi'
     ];
+    protected function casts(): array
+    {
+        return [
+            'harga' => 'float'
+        ];
+    }
+
 
     public function detailPeriksa(): HasMany
     {

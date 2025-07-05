@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\periksa;
 use Carbon\Carbon;
+use App\Models\pasienModel;
+
 class AuthSocialiteController extends Controller
 {
     public function redirect()
@@ -18,11 +20,12 @@ class AuthSocialiteController extends Controller
 
     public function callback()
     {
+        $noKtp = str_pad(random_int(1000000000000000, 9999999999999999), 16, '0', STR_PAD_LEFT);
         $SosialUser = Socialite::driver('google')->user();
         $registeredUser = User::where('google_id', $SosialUser->id)->first();
 
         if (!$registeredUser) {
-            $user = User::updateOrCreate([
+            $newUser = User::updateOrCreate([
                 'google_id' => $SosialUser->id,
             ], [
                 'nama' => $SosialUser->name,
@@ -35,18 +38,19 @@ class AuthSocialiteController extends Controller
                 'alamat' => '-',
                 'photo' => '',
                 'cover_photo' => '',
-
             ]);
-            $user = periksa::updateOrCreate([
-                'id_pasien' => $user->id,
-                'id_dokter' => null, // atau isi sesuai kebutuhan
-                'tgl_periksa' => Carbon::now()->toDateString(),
-                'catatan' => '-',
-                'biaya_periksa' => 0,
-            ]);
-
-
-            Auth::login($user);
+            // Buat data pasien
+            pasienModel::firstOrCreate(
+                [
+                    'user_id' => $newUser->id,
+                ],
+                [
+                    'no_ktp' => $noKtp,
+                    'no_rm' => now()->format('YmdHis'),
+                ]
+            );
+            
+            Auth::login($newUser);
 
             return redirect('/dokter');
         }
